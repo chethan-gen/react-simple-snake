@@ -1,34 +1,34 @@
-var path = require('path')
-const port = process.env.PORT || 3000
+var path = require('path');
+const port = process.env.PORT || 3000;
 
 module.exports = {
     mode: 'development',
     entry: path.resolve(__dirname, 'index.js'),
-	output: {
+    output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js',
-	},
-	module: {
-		rules: [
-			{
+    },
+    module: {
+        rules: [
+            {
                 test: /\.(js|jsx)?$/,
                 exclude: /node_modules/,
-                use: "babel-loader"
-			},
-			{
-                test: /\.css/,
-                use: ['style-loader', 'css-loader']
-			},
-        ]
+                use: 'babel-loader',
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'public'),
+        static: path.resolve(__dirname, 'public'), // Updated from "contentBase"
         host: 'localhost',
         port: port,
         historyApiFallback: true,
         open: true,
-        transportMode: 'ws',
-        injectClient: false
-      },
-    devtool: 'inline-source-map'
-}
+        hot: true, // Enable Hot Module Replacement
+        liveReload: true, // Enable live reloading
+    },
+    devtool: 'inline-source-map',
+};
